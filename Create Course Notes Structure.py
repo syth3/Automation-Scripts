@@ -8,9 +8,10 @@ from pathlib import Path
 
 def create_markdown_files(section_names, dest_dir):
     for name in section_names:
-        full_path = dest_dir / name
+        file_name = name + ".md"
+        full_path = dest_dir / file_name
         with full_path.open("w") as markdown_file:
-            markdown_file.write("# " + str(name))
+            markdown_file.write("# " + str(name).split("-")[1].strip())
 
 
 def create_screenshot_dirs(section_names, dest_dir):
@@ -35,7 +36,7 @@ def gather_dest_dir(course_name):
         proceed_input = input("The following directory already exists: " + str(dest_dir) + "\nProceed? (y/n): ")
         if proceed_input == 'n':
             exit(1)
-    return dest_dir
+    return dest_dir / "Notes"
 
 
 def gather_section_names():
@@ -57,7 +58,7 @@ def gather_input():
 
 
 def make_dest_dir(dest_dir):
-    dest_dir.mkdir()
+    dest_dir.mkdir(parents=True)
 
 
 def main():
